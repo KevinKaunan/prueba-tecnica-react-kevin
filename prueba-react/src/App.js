@@ -1,25 +1,30 @@
-import logo from "./logo.svg";
+import { DataContextProvider } from "context/DataContext";
+import StaticContext from "context/StaticContex";
 import "./App.css";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Inicio from "pages/Inicio";
+
+import { Link, Route } from "wouter";
+import Series from "pages/Series";
+import Movies from "pages/Movies";
 function App() {
   return (
-    <div className='App'>
-      <header className='App-header'>
-        {/* <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a> */}
-        <Header></Header>
-      </header>
-    </div>
+    <>
+      <StaticContext.Provider value={{ name: "Kevin", wishMeLuck: true }}>
+        <div className='App'>
+          <Link to='/'>
+            <Header />
+          </Link>
+          <DataContextProvider>
+            <Route component={Inicio} path='/' />
+            <Route component={Series} path='/series' />
+            <Route component={Movies} path='/movies' />
+          </DataContextProvider>
+        </div>
+      </StaticContext.Provider>
+      <Footer />
+    </>
   );
 }
 
